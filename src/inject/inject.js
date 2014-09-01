@@ -14,6 +14,7 @@ chrome.extension.sendMessage({}, function(response) {
 var myeatclubPlugin = (function() {
 
     function init() {
+        addUI();
         sort();
 
         //init MutationObserver
@@ -26,6 +27,25 @@ var myeatclubPlugin = (function() {
             });
         });
         observer.observe(target, {childList:true});
+    }
+
+    function addUI () {
+        var ulElem = document.querySelector('.ddmenu > ul');
+        var liElem = ulElem.appendChild(document.createElement('li'));
+        var htmlStr = [
+            {name:'Gluten-Free',url:'gluten_free'},
+            {name:'Vegan',url:'vegan'},
+            {name:'Spicy',url:'spicy'},
+            {name:'Vegetarian',url:'vegetarian'},
+            {name:'Nuts',url:'nuts'},
+            {name:'Spicy',url:'spicy'},
+            {name:'Big-Portion',url:'big_portion'},
+            {name:'Low-Carb',url:'low_carb'}
+        ].map(function(obj){
+            return '<li class="icon-sortable">' + obj.name + '</li>';
+        }).join('');
+        htmlStr = '<a>Sorting Options <ul>' + htmlStr + '</ul></a>';
+        liElem.innerHTML = htmlStr;
     }
 
     function sort() {
