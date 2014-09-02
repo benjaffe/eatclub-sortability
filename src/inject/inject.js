@@ -51,7 +51,7 @@ var myeatclubPlugin = (function() {
         liElem.innerHTML = htmlStr;
     }
 
-    var sortOrder = ['vegan','vegetarian','big_portion'].reverse();
+    var sortOrder = ['vegan','vegetarian','big_portion','spicy','gluten_free'].reverse();
     var listItems;
 
     function sort() {
@@ -62,12 +62,15 @@ var myeatclubPlugin = (function() {
         // alert();
         console.log('sorting by ' + sortParam);
 
-        listItems = listItems.mergeSort(function(item){
-            if (item.querySelector('[src*="'+sortParam+'"]')) {
-                console.log('found ' + sortParam);
-                return 0;
-            } else {
+        listItems = listItems.mergeSort(function(item1,item2){
+            var item1Match = !!item1.querySelector('[src*="'+sortParam+'"]');
+            var item2Match = !!item2.querySelector('[src*="'+sortParam+'"]');
+            if (item1Match && !item2Match) {
+                return -1;
+            } else if (item2Match && !item1Match) {
                 return 1;
+            } else {
+                return 0;
             }
         });
         updateListItemOrder();
@@ -78,7 +81,7 @@ var myeatclubPlugin = (function() {
         var parent = document.getElementById('menu-main');
         console.log(listItems);
         listItems.forEach(function(item) {
-            parent.appendChild(item);
+            parent.appendChild(item);//,parent.children[0]);
         });
     }
 
@@ -150,3 +153,4 @@ var myeatclubPlugin = (function() {
     return result;
   }
 })();
+console.log([1,2,3,4,5].mergeSort(function(item){if (item<3) return -1; else return 0;}));
