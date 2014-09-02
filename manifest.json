@@ -27,6 +27,7 @@
         "https://www.myeatclub.com/*"
       ],
       "js": [
+        "src/inject/Sortable.min.js",
         "src/inject/inject.js"
       ]
     }

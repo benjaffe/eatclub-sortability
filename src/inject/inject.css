@@ -1,3 +1,57 @@
 .menu-item:nth-child(3n) {
     margin-right: 0;
 }
+
+.sorting-options-menu-item {
+    position: relative;
+}
+
+.sorting-dropdown {
+    background-color: #FFF;
+    width:300px;
+    position:absolute;
+    top: 100%;
+    right: 0;
+    z-index: 100;
+    padding: 10px 14px;
+    box-shadow: 0 6px 9px rgba(0,0,0,0.3);
+    border: solid 1px #CCC;
+    border-top: none;
+}
+.sorting-dropdown:after {
+    content: "",
+    display: table;
+    clear: both;
+}
+.sorting-dropdown .sorting-options-list {
+    display: block;
+    background-color: #DDD;
+    min-height: 45px;
+    float: left;
+    width:48%;
+    padding: 0;
+    margin: 0 0 0 4%;
+    border:none;
+}
+
+.sorting-dropdown .sorting-options-list:first-child {
+    margin-left: 0;
+}
+
+.sorting-options-list li {
+    color:#999;
+    border-left:none;
+    border-right:none;
+}
+.sorting-options-list li:hover {
+    color:#F44;
+}
+
+
+.sorting-options-enabled li {
+    background-color: #ADA;
+    color: #464;
+}
+.sorting-options-enabled {
+    background-color: #BDB;
+}

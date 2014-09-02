@@ -15,6 +15,27 @@ chrome.extension.sendMessage({}, function(response) {
 
 var myeatclubPlugin = (function() {
 
+    var sortOrder = getStorageData();
+    var listItems;
+    var categories = [
+        {name:'Gluten-Free',url:'gluten_free'},
+        {name:'Vegan',url:'vegan'},
+        {name:'Spicy',url:'spicy'},
+        {name:'Vegetarian',url:'vegetarian'},
+        {name:'Nuts',url:'nuts'},
+        {name:'Big-Portion',url:'big_portion'},
+        {name:'Low-Carb',url:'low_carb'},
+        {name:'Paleo',url:'paleo'}
+    ];
+
+    function getStorageData() {
+        return localStorage.sortOrder ? JSON.parse(localStorage.sortOrder) : [];
+    }
+
+    function setStorageData(data) {
+        localStorage.sortOrder = JSON.stringify(data);
+    }
+
     function init() {
         addUI();
         sort();
@@ -34,25 +55,52 @@ var myeatclubPlugin = (function() {
     function addUI () {
         var ulElem = document.querySelector('.ddmenu > ul');
         var liElem = ulElem.appendChild(document.createElement('li'));
-        var htmlStr = [
-            {name:'Gluten-Free',url:'gluten_free'},
-            {name:'Vegan',url:'vegan'},
-            {name:'Spicy',url:'spicy'},
-            {name:'Vegetarian',url:'vegetarian'},
-            {name:'Nuts',url:'nuts'},
-            {name:'Spicy',url:'spicy'},
-            {name:'Big-Portion',url:'big_portion'},
-            {name:'Low-Carb',url:'low_carb'},
-            {name:'Paleo',url:'paleo'}
-        ].map(function(obj){
-            return '<li class="icon-sortable">' + obj.name + '</li>';
-        }).join('');
-        htmlStr = '<a>Sorting Options <ul>' + htmlStr + '</ul></a>';
+        var enabledCategories = getStorageData();
+        var htmlStrList1 = '';
+        var htmlStrList2 = '';
+
+        categories.forEach(function(obj){
+            if (enabledCategories.indexOf(obj.url) !== -1) {
+                htmlStrList1 += '<li class="icon-sortable">' + obj.name + '</li>';
+            } else {
+                htmlStrList2 += '<li class="icon-sortable">' + obj.name + '</li>';
+            }
+        });
+
+        htmlStr = '<a class="sorting-options-menu-item">Sorting Options <div class="sorting-dropdown"><ul id="sorting-options-enabled" class="sorting-options-list sorting-options-enabled">' + htmlStrList1 + '</ul><ul id="sorting-options-disabled" class="sorting-options-list">' + htmlStrList2 + '</ul></div></a>';
         liElem.innerHTML = htmlStr;
+
+        new Sortable(document.getElementById('sorting-options-enabled'), {
+            group:'earlgreyhot',
+            onUpdate: categoryChangeHandler,
+            onAdd: categoryChangeHandler,
+            onRemove: categoryChangeHandler
+        });
+        new Sortable(document.getElementById('sorting-options-disabled'), {
+            group:'earlgreyhot'
+        });
     }
 
-    var sortOrder = ['vegan','vegetarian','big_portion','spicy','gluten_free'].reverse();
-    var listItems;
+    function categoryChangeHandler(e) {
+        // console.log('hi');
+        var listItems = document.getElementById('sorting-options-enabled').children;
+        // console.log(listItems);
+        sortOrder = [];
+        for (var i = 0; i < listItems.length; i++) {
+            var itemName = listItems[i].textContent;
+            for (var j = 0; j < categories.length; j++) {
+                // console.log(categories[j].name, itemName);
+                if (categories[j].name === itemName) {
+                    sortOrder.push(categories[j].url);
+                    break;
+                }
+            }
+        }
+        sortOrder.reverse();
+        setStorageData(sortOrder);
+        sort();
+        // console.log(sortOrder);
+    }
 
     function sort() {
         listItems = Array.prototype.slice.call(document.querySelectorAll('.menu-item'));
@@ -60,7 +108,7 @@ var myeatclubPlugin = (function() {
     }
     function sortBy(sortParam) {
         // alert();
-        console.log('sorting by ' + sortParam);
+        // console.log('sorting by ' + sortParam);
 
         listItems = listItems.mergeSort(function(item1,item2){
             var item1Match = !!item1.querySelector('[src*="'+sortParam+'"]');
@@ -77,9 +125,9 @@ var myeatclubPlugin = (function() {
     }
 
     function updateListItemOrder() {
-        console.log('updating list',listItems.map(function(item){return item.querySelectorAll('.popover-target')}));
+        // console.log('updating list',listItems.map(function(item){return item.querySelectorAll('.popover-target')}));
         var parent = document.getElementById('menu-main');
-        console.log(listItems);
+        // console.log(listItems);
         listItems.forEach(function(item) {
             parent.appendChild(item);//,parent.children[0]);
         });
@@ -153,4 +201,3 @@ var myeatclubPlugin = (function() {
     return result;
   }
 })();
-console.log([1,2,3,4,5].mergeSort(function(item){if (item<3) return -1; else return 0;}));
