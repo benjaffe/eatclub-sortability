@@ -7,6 +7,7 @@
 }
 
 .sorting-dropdown {
+    display: none;
     background-color: #FFF;
     width:300px;
     position:absolute;
@@ -17,6 +18,9 @@
     box-shadow: 0 6px 9px rgba(0,0,0,0.3);
     border: solid 1px #CCC;
     border-top: none;
+}
+li:hover .sorting-dropdown {
+    display: block;
 }
 .sorting-dropdown:after {
     content: "",
