@@ -1,8 +1,8 @@
 {
-  "name": "EAT Club: Sorted",
+  "name": "EAT Club Sortability",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "List the veggie and vegan options at the top of EAT Club",
+  "description": "Sort your EAT Club menu items according to your own preferences.",
   "homepage_url": "http://extensionizr.com",
   "icons": {
     "16": "icons/icon16.png",
