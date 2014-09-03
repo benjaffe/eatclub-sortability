@@ -59,3 +59,31 @@ li:hover .sorting-dropdown {
 .sorting-options-enabled {
     background-color: #BDB;
 }
+
+@keyframes new-feature {
+    0% {transform: scale(1);}
+    92% {transform: scale(1);}
+    96% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+}
+@-webkit-keyframes new-feature {
+    0% {-webkit-transform: scale(1);}
+    46% {-webkit-transform: scale(1);}
+    48% {-webkit-transform: scale(1.1);}
+    50% {-webkit-transform: scale(1);}
+    100% {-webkit-transform: scale(1);}
+}
+.new-feature {
+    -webkit-animation-name: new-feature;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease;
+    animation-name: new-feature;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+}
+.new-feature:hover {
+    -webkit-animation-name: none;
+    animation-name: none;
+}

@@ -17,6 +17,7 @@ var myeatclubPlugin = (function() {
 
     var sortOrder = getStorageData();
     var listItems;
+    var firstTime = !localStorage.sortOrder || getStorageData().length === 0;
     var categories = [
         {name:'Gluten-Free',url:'gluten_free'},
         {name:'Vegan',url:'vegan'},
@@ -27,6 +28,7 @@ var myeatclubPlugin = (function() {
         {name:'Low-Carb',url:'low_carb'},
         {name:'Paleo',url:'paleo'}
     ];
+    var liElem;
 
     function getStorageData() {
         return localStorage.sortOrder ? JSON.parse(localStorage.sortOrder) : [];
@@ -54,10 +56,15 @@ var myeatclubPlugin = (function() {
 
     function addUI () {
         var ulElem = document.querySelector('.ddmenu > ul');
-        var liElem = ulElem.appendChild(document.createElement('li'));
         var enabledCategories = getStorageData();
         var htmlStrList1 = '';
         var htmlStrList2 = '';
+
+        liElem = ulElem.appendChild(document.createElement('li'));
+
+        if (firstTime) {
+            liElem.classList.add('new-feature');
+        }
 
         categories.forEach(function(obj){
             if (enabledCategories.indexOf(obj.url) !== -1) {
@@ -82,9 +89,7 @@ var myeatclubPlugin = (function() {
     }
 
     function categoryChangeHandler(e) {
-        // console.log('hi');
         var listItems = document.getElementById('sorting-options-enabled').children;
-        // console.log(listItems);
         sortOrder = [];
         for (var i = 0; i < listItems.length; i++) {
             var itemName = listItems[i].textContent;
@@ -99,7 +104,12 @@ var myeatclubPlugin = (function() {
         sortOrder.reverse();
         setStorageData(sortOrder);
         sort();
-        // console.log(sortOrder);
+
+        // since the user has used the feature, remove the new-feature class
+        if (firstTime) {
+            firstTime = false;
+            liElem.classList.remove('new-feature');
+        }
     }
 
     function sort() {
