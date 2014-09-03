@@ -67,15 +67,16 @@ li:hover .sorting-dropdown {
     100% {transform: scale(1);}
 }
 @-webkit-keyframes new-feature {
-    0% {-webkit-transform: scale(1);}
-    46% {-webkit-transform: scale(1);}
-    48% {-webkit-transform: scale(1.1);}
-    50% {-webkit-transform: scale(1);}
-    100% {-webkit-transform: scale(1);}
+    0% {color:rgb(155, 155, 155);}
+    46% {-webkit-transform: scale(1);color:rgb(155, 155, 155);}
+    48% {-webkit-transform: scale(1.1);color:rgb(95, 185, 95);}
+    50% {-webkit-transform: scale(1);color:rgb(155, 155, 155);}
+    100% {color:rgb(155, 155, 155);}
 }
+.new-feature a {color:inherit!important;}
 .new-feature {
     -webkit-animation-name: new-feature;
-    -webkit-animation-duration: 4s;
+    -webkit-animation-duration: 10s;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease;
     animation-name: new-feature;
