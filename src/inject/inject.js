@@ -51,6 +51,23 @@ var myeatclubPlugin = (function() {
         observer.observe(target, {childList:true});
     }
 
+    function urlToName (url) {
+        var obj;
+        for (var i = 0; i < categories.length; i++) {
+            obj = categories[i];
+            if (url === obj.url) return obj.name;
+        }
+        return '';
+    }
+    function nameToUrl (name) {
+        var obj;
+        for (var i = 0; i < categories.length; i++) {
+            obj = categories[i];
+            if (name === obj.name) return obj.url;
+        }
+        return '';
+    }
+
     function addUI () {
         var ulElem = document.querySelector('.ddmenu > ul');
         var enabledCategories = getStorageData();
@@ -63,10 +80,12 @@ var myeatclubPlugin = (function() {
             liElem.classList.add('new-feature');
         }
 
+        enabledCategories.forEach(function(url){
+            htmlStrList1 = '<li class="icon-sortable">' + urlToName(url) + '</li>' + htmlStrList1;
+        });
+
         categories.forEach(function(obj){
-            if (enabledCategories.indexOf(obj.url) !== -1) {
-                htmlStrList1 += '<li class="icon-sortable">' + obj.name + '</li>';
-            } else {
+            if (enabledCategories.indexOf(obj.url) === -1) {
                 htmlStrList2 += '<li class="icon-sortable">' + obj.name + '</li>';
             }
         });
