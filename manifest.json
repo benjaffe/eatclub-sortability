@@ -1,6 +1,6 @@
 {
   "name": "EAT Club Sortability",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "description": "Sort your EAT Club menu items according to your own preferences.",
   "homepage_url": "http://extensionizr.com",
@@ -27,7 +27,8 @@
         "https://www.myeatclub.com/*"
       ],
       "js": [
-        "src/inject/Sortable.min.js",
+        "src/inject/lib/Sortable.min.js",
+        "src/inject/lib/stableMergeSort.js",
         "src/inject/inject.js"
       ]
     }
