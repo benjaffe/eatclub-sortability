@@ -42,17 +42,17 @@ li:hover .sorting-dropdown {
     margin-left: 0;
 }
 
-.sorting-options-list li {
+.sorting-options-list .icon-sortable {
     color:#999;
     border-left:none;
     border-right:none;
 }
-.sorting-options-list li:hover {
+.sorting-options-list .icon-sortable:hover {
     color:#F44;
 }
 
 
-.sorting-options-enabled li {
+.sorting-options-enabled .icon-sortable {
     background-color: #ADA;
     color: #464;
 }
