@@ -1,16 +1,13 @@
 chrome.extension.sendMessage({}, function(response) {
 	var readyStateCheckInterval = setInterval(function() {
-	if (document.readyState === "complete") {
-		clearInterval(readyStateCheckInterval);
 
+        if (document.getElementById('menu-main')) {
+    		clearInterval(readyStateCheckInterval);
+    		myeatclubPlugin.init();
+    	}
 
-
-		myeatclubPlugin.init();
-
-	}
 	}, 10);
 });
-
 
 
 var myeatclubPlugin = (function() {
