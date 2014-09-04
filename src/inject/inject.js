@@ -131,6 +131,12 @@ var myeatclubPlugin = (function() {
     function sort() {
         listItems = Array.prototype.slice.call(document.querySelectorAll('.menu-item'));
         sortOrder.forEach(sortBy);
+
+        // confirm that menu items don't have margin-right set
+        var menuItems = document.querySelectorAll('.menu-item');
+        for (var i = 0; i < menuItems.length; i++) {
+            menuItems[i].style.marginRight = '';
+        }
     }
     function sortBy(sortParam) {
         // alert();
