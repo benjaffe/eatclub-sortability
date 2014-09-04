@@ -60,6 +60,19 @@ li:hover .sorting-dropdown {
     background-color: #BDB;
 }
 
+.popover {
+    position: fixed;
+    bottom: 0!important;
+    left: 50%!important;
+    right: auto!important;
+    top: auto!important;
+    margin-left: -147px;
+    pointer-events: none;
+}
+.popover .popover-inner {
+    box-shadow: 0 2px 15px rgba(0,0,0,0.5)!important;
+}
+
 @keyframes new-feature {
     0% {transform: scale(1);}
     92% {transform: scale(1);}
